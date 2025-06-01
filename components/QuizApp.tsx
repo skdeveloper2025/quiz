@@ -293,8 +293,8 @@ const questions = [
 
 export default function QuizApp() {
   const [current, setCurrent] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [answers, setAnswers] = useState([]);
+const [selected, setSelected] = useState<number | null>(null);
+const [answers, setAnswers] = useState<(number | null)[]>([]);
   const [showSummary, setShowSummary] = useState(false);
 
   const handleSubmit = () => {

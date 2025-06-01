@@ -1,10 +1,17 @@
 // components/QuizApp.tsx
 "use client";
 import { useState } from "react";
-const Card = ({ children, className = "" }) => (
+const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`bg-white rounded-xl p-6 shadow-xl ${className}`}>{children}</div>
 );
-const Button = ({ children, onClick, disabled, className = "", variant = "default", isSelected = false }) => {
+const Button = ({ children, onClick, disabled, className = "", variant = "default", isSelected = false }: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+  variant?: string;
+  isSelected?: boolean;
+}) => {
   const base = "px-4 py-2 rounded-xl w-full text-left transition-all duration-150";
   const styles = variant === "outline"
     ? "border border-gray-300 bg-white hover:bg-blue-100"
@@ -318,7 +325,12 @@ export default function QuizApp() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-200 flex items-center justify-center p-4">
       <div className="w-full max-w-xl">
         {!showSummary ? (
-          <motion.div key={current} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             <Card>
               <h2 className="text-xl font-semibold mb-4">Question {current + 1} of {questions.length}</h2>
               <p className="text-lg font-medium mb-4">{questions[current].question}</p>
@@ -329,26 +341,26 @@ export default function QuizApp() {
                   const wasSelected = answers[current] === idx;
                   const wasCorrect = answers[current] === questions[current].answer;
                   const highlight =
-                    answers[current] == null
-                      ? isSelected
-                        ? "border-blue-500 bg-blue-50"
-                        : ""
-                      : wasSelected && !isCorrect
-                      ? "border-red-500 bg-red-50"
-                      : isCorrect
-                      ? "border-green-500 bg-green-50"
-                      : "";
+  answers[current] == null
+    ? isSelected
+      ? "border-blue-500 bg-blue-50"
+      : ""
+    : wasSelected && !isCorrect
+    ? "border-red-500 bg-red-50"
+    : isCorrect
+    ? "border-green-500 bg-green-50"
+    : "";
                   return (
-                    <Button
-                      key={idx}
-                      isSelected={isSelected}
-                      onClick={() => setSelected(idx)}
-                      disabled={answers[current] != null}
-                      className={`w-full justify-start ${highlight}`}
-                    >
-                      {opt}
-                    </Button>
-                  );
+                      <Button
+  key={idx}
+  isSelected={isSelected}
+  onClick={() => setSelected(idx)}
+  disabled={answers[current] != null}
+  className={`w-full justify-start ${highlight}`}
+>
+  {opt}
+</Button>
+                    );
                 })}
               </div>
               {answers[current] == null && selected !== null && (
@@ -359,7 +371,11 @@ export default function QuizApp() {
             </Card>
           </motion.div>
         ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center bg-white p-6 rounded-2xl shadow-lg">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center bg-white p-6 rounded-2xl shadow-lg"
+          >
             <h2 className="text-2xl font-bold mb-4">Quiz Summary</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               {Object.entries(summary()).map(([key, val], i) => (

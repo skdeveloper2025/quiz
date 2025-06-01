@@ -1,5 +1,6 @@
 // components/QuizApp.tsx
 "use client";
+import React from "react";
 import { useState } from "react";
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`bg-white rounded-xl p-6 shadow-xl ${className}`}>{children}</div>
